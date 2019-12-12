@@ -20,6 +20,7 @@ RUN apt-get update -yqq && \
     systemd \
     parallel \
     python \
+    htop \
     wget \
     curl \
     unzip \
@@ -28,6 +29,7 @@ RUN apt-get update -yqq && \
     vim \
     nano \
     less \
+    tree \
     git \
     r-base \
     ttf-dejavu
