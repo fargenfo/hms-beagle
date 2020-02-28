@@ -58,6 +58,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
 #    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
 #    gdebi rstudio-server-1.2.5001-amd64.deb
 
+# Set up git user info.
+RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "olavurmortensen@gmail.com"
+
 
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
