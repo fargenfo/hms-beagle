@@ -34,6 +34,18 @@ RUN apt-get update -yqq && \
     r-base \
     ttf-dejavu
 
+# Packages needed for LRSIM.
+RUN apt-get install -yqq \
+    make \
+    perl \
+    gcc \
+    g++ \
+    libncurses5-dev \
+    zlib1g-dev \
+    libmath-random-perl \
+    libinline-perl \
+    musl-dev
+
 # Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
 # https://hub.docker.com/r/continuumio/miniconda3/dockerfile
 RUN apt-get update --fix-missing && \
