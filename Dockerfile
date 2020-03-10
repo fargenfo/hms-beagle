@@ -73,6 +73,16 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
 # Set up git user info.
 RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "olavurmortensen@gmail.com"
 
+# Set up Vim configuration.
+# /root is the equivalent of home.
+WORKDIR /root
+# Download Tim Pope's "pathogen" from https://github.com/tpope/vim-pathogen.
+RUN mkdir -p .vim/autoload .vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+# Add the vimrc configuration.
+ADD vimrc /root
+RUN mv vimrc .vimrc
+WORKDIR /
 
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
