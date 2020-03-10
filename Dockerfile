@@ -73,6 +73,13 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
 # Set up git user info.
 RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "olavurmortensen@gmail.com"
 
+# Append bashrc_extra to /root/.bashrc.
+# /root is the equivalent of home.
+WORKDIR /root
+ADD bashrc_extra .
+RUN cat bashrc_extra >> .bashrc && rm bashrc_extra
+WORKDIR /
+
 # Set up Vim configuration.
 # /root is the equivalent of home.
 WORKDIR /root
