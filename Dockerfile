@@ -32,10 +32,7 @@ RUN apt-get update -yqq && \
     tree \
     git \
     r-base \
-    ttf-dejavu
-
-# Packages needed for LRSIM.
-RUN apt-get install -yqq \
+    ttf-dejavu \
     make \
     perl \
     gcc \
@@ -71,7 +68,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86
 #    gdebi rstudio-server-1.2.5001-amd64.deb
 
 # Set up git user info.
-RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "olavurmortensen@gmail.com"
+RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "Ólavur Mortensen"
 
 # Append bashrc_extra to /root/.bashrc.
 # /root is the equivalent of home.
