@@ -5,3 +5,9 @@ function parse_git_branch () {
 }
 export PS1="[\u@\h:\w]\[\e[1;32m\]\$(parse_git_branch)\[\e[0m\]\[\e[0;35m\]$\[\e[0m\] "
 
+# If the startup script path is defined, run the script.
+if test "$STARTUP_SCRIPT";
+then
+    source $STARTUP_SCRIPT
+fi
+
