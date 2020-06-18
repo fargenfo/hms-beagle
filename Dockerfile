@@ -73,11 +73,14 @@ RUN conda update conda -y
 #echo "conda activate base" >> ~/.bashrc
 # But I don't think this is a good idea.
 
-# TODO: install RStudio server. Maybe.
-## Install RStudio Server.
-#RUN apt install -yqq gdebi-core && \
-#    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
-#    gdebi rstudio-server-1.2.5001-amd64.deb
+# Install RStudio Server.
+RUN apt-get update -yqq && apt-get install -yqq gdebi-core && \
+    wget --quiet https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
+    gdebi -n rstudio-server-1.2.5001-amd64.deb
+
+# Configure RStudio Server to run on 0.0.0.0/80.
+RUN echo "www-port=80" >> /etc/rstudio/rserver.conf
+RUN echo "www-address=0.0.0.0" >> /etc/rstudio/rserver.conf
 
 # Append bashrc_extra to /root/.bashrc.
 # /root is the equivalent of home.
