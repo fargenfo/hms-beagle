@@ -78,9 +78,6 @@ RUN conda update conda -y
 #    wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
 #    gdebi rstudio-server-1.2.5001-amd64.deb
 
-# Set up git user info.
-RUN git config --global user.email "olavurmortensen@gmail.com" && git config --global user.name "Ólavur Mortensen"
-
 # Append bashrc_extra to /root/.bashrc.
 # /root is the equivalent of home.
 WORKDIR /root
