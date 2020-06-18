@@ -39,7 +39,8 @@ RUN apt-get update -yqq && \
     zlib1g-dev \
     libmath-random-perl \
     libinline-perl \
-    musl-dev
+    musl-dev \
+    dos2unix
 
 # Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
 # https://hub.docker.com/r/continuumio/miniconda3/dockerfile
