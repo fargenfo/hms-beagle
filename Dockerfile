@@ -13,6 +13,13 @@ LABEL \
 
 
 # Install some software.
+
+# Add repo for r-base 4.0.
+RUN apt-get update -yqq && apt-get install -yqq gnupg apt-transport-https software-properties-common
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
+    add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
+
+# Install all sorts of stuff.
 RUN apt-get update -yqq && \
     apt-get install -yqq \
     systemd \
