@@ -76,7 +76,8 @@ RUN conda update conda -y
 # Install RStudio Server.
 RUN apt-get update -yqq && apt-get install -yqq gdebi-core && \
     wget --quiet https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
-    gdebi -n rstudio-server-1.2.5001-amd64.deb
+    gdebi -n rstudio-server-1.2.5001-amd64.deb && \
+    rm rstudio-server-1.2.5001-amd64.deb
 
 # Configure RStudio Server to run on 0.0.0.0/80.
 RUN echo "www-port=80" >> /etc/rstudio/rserver.conf
