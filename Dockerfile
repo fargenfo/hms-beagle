@@ -51,7 +51,8 @@ RUN apt-get update -yqq && \
     libxml2-dev \
     musl-dev \
     dos2unix \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    ghostscript-x
 
 # Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
 # https://hub.docker.com/r/continuumio/miniconda3/dockerfile
