@@ -52,7 +52,8 @@ RUN apt-get update -yqq && \
     musl-dev \
     dos2unix \
     libcurl4-openssl-dev \
-    ghostscript-x
+    ghostscript-x \
+    python3-venv
 
 # Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
 # https://hub.docker.com/r/continuumio/miniconda3/dockerfile
