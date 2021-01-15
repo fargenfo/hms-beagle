@@ -55,37 +55,6 @@ RUN apt-get update -yqq && \
     ghostscript-x \
     python3-venv
 
-# Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
-# https://hub.docker.com/r/continuumio/miniconda3/dockerfile
-RUN apt-get update --fix-missing && \
-    apt-get install -y bzip2 ca-certificates && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-    /opt/conda/bin/conda clean -tipsy && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
-
-# Make a folder for the conda executable and add it to the path.
-# NOTE: "conda init" usually does this, but I can't find a way to run that command in a Dockerfile.
-# NOTE: if I add /opt/conda/bin to path, the conda python executable is in the path, which is not desirable.
-RUN mkdir /opt/conda/condabin && \
-    cp /opt/conda/bin/conda /opt/conda/condabin
-ENV PATH /opt/conda/condabin:$PATH
-
-# Update conda.
-# NOTE: without updating, I was not able to install conda-forge::jupyterlab=2.0.1.
-# NOTE: this Dockerfile will have different versions of conda depending on build time.
-RUN conda update conda -y
-
-# NOTE:
-# The Miniconda3 recipe from DockerHub does "conda activate base":
-#echo "conda activate base" >> ~/.bashrc
-# But I don't think this is a good idea.
-
 # Install RStudio Server.
 RUN apt-get update -yqq && apt-get install -yqq gdebi-core && \
     wget --quiet https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5001-amd64.deb && \
@@ -118,10 +87,52 @@ ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 
-# NOTE: if I have an environment.yml and want to create a conda env:
-#COPY environment.yml /
-#RUN conda env create -f /environment.yml && conda clean -a
-#ENV PATH /opt/conda/envs/[name of env goes here]/bin:$PATH
+# Miniconda3 installation taken directly from continuumio/miniconda3 on DockerHub:
+# https://hub.docker.com/r/continuumio/miniconda3/dockerfile
+RUN apt-get update --fix-missing && \
+    apt-get install -y bzip2 ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.11-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    /opt/conda/bin/conda clean -tipsy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+
+# Make a folder for the conda executable and add it to the path.
+# NOTE: "conda init" usually does this, but I can't find a way to run that command in a Dockerfile.
+# NOTE: if I add /opt/conda/bin to path, the conda python executable is in the path, which is not desirable.
+RUN mkdir /opt/conda/condabin && \
+    cp /opt/conda/bin/conda /opt/conda/condabin
+ENV PATH /opt/conda/condabin:$PATH
+
+# Update conda.
+# NOTE: this Dockerfile will have different versions of conda depending on build time.
+RUN conda update -n base -c defaults conda -y
+
+# Install the hms-beagle conda environment defined in the YAML file.
+# Copy file to image.
+COPY environment.yml /
+# Create environment, installing dependencies.
+RUN conda env create -f /environment.yml && conda clean -a
+# Remove YAML file from image.
+RUN rm /environment.yml
+
+# Append this command to the bashrc to activate the hms-beagle environment
+# on startup.
+RUN echo "conda activate hms-beagle" >> ~/.bashrc
+
+# Configure Jupyter.
+# Normally, you would run this command:
+# jupyter lab -generate-config
+# To make the .jupyter folder in the home folder (~) , and create the
+# template config file "jupyter_lab_config.py".
+# Create the jupyter user directory.
+RUN mkdir /root/.jupyter
+# Copy the custom config file to the image.
+COPY jupyter_lab_config.py /root/.jupyter
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]

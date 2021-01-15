@@ -1,0 +1,9 @@
+
+name: hms-beagle
+
+channels:
+    - conda-forge
+    - defaults
+
+dependencies:
+    - jupyterlab
