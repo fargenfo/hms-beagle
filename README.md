@@ -1,5 +1,7 @@
 # Second Voyage of HMS Beagle
 
+On the 27th of December 1831, the HMS Beagle embarked on its _Second Voyage_. Onboard the sloop was the young Charles Darwin, who set out on a journey that would define his career. By deploying `hms-beagle:second-voyage` we too shall embark on a journey, a journey of biology and computation.
+
 <img src="https://raw.githubusercontent.com/olavurmortensen/hms-beagle/master/images/PSM_V57_D097_Hms_beagle_in_the_straits_of_magellan.png" width=500>
 
 ## Usage
