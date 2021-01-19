@@ -5,6 +5,8 @@ On the 27th of December 1831, the HMS Beagle embarked on its _Second Voyage_. On
 
 <img src="https://raw.githubusercontent.com/olavurmortensen/hms-beagle/master/images/PSM_V57_D097_Hms_beagle_in_the_straits_of_magellan.png" width=500>
 
+HMS Beagle is a Docker container image designed for bioinformatics. We use [Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/) as a user-interface to access the terminal, write Python notebooks, and various other things. We use the [conda](https://docs.conda.io/en/latest/miniconda.html) package manager to manage the software dependencies of all of our experiments and projects.
+
 ## Usage
 
 ### Running the container
@@ -77,7 +79,7 @@ The [Vim](https://www.vim.org/) text editor is installed, and is configured usin
 
 ### Jupyter
 
-[Jupyter Lab]() is installed via to the `hms-beagle` conda environment, and configured in the [jupyter_lab_config.py](https://github.com/olavurmortensen/hms-beagle/blob/master/jupyter_lab_config.py) file.
+[Jupyter Lab](https://jupyterlab.readthedocs.io/en/stable/) is installed via to the `hms-beagle` conda environment, and configured in the [jupyter_lab_config.py](https://github.com/olavurmortensen/hms-beagle/blob/master/jupyter_lab_config.py) file.
 
 The configuration ensures that Jupyter is runnable in the container, which means the IP used is `0.0.0.0`, the port is `80`, and `--allow-root` is `True`.
 
