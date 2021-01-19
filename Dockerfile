@@ -134,5 +134,10 @@ RUN mkdir /root/.jupyter
 # Copy the custom config file to the image.
 COPY jupyter_lab_config.py /root/.jupyter
 
+# Add tmux config.
+# This maps the prefix to Ctrl+a. The default Ctrl+b prefix is problematic,
+# as it clashes with various other shortcuts when working in a browser in Jupyter.
+COPY tmux.conf /root/.tmux.conf
+
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
