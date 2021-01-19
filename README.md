@@ -52,6 +52,12 @@ sudo docker run -it -p80:80 hms-beagle
 
 Proceed as in the previous section.
 
+## Description
+
+The [Dockerfile](https://github.com/olavurmortensen/hms-beagle/blob/master/Dockerfile) defines the HMS Beagle image, and is built automatically on [Docker Hub](https://hub.docker.com/repository/docker/olavurmortensen/hms-beagle). The image extends a Ubuntu Bionic image, and installs a lot of software that you would expect in a fully-fledged Ubuntu installation (without any graphical user interface). See the [Software](#software) section for more information about the software installed.
+
+The bash terminal is configured in the [bashrc_extra](https://github.com/olavurmortensen/hms-beagle/blob/master/bashrc_extra) file, which is appended to the image's `.bashrc`.
+
 ## Software
 
 This section lists various software available in the image, and how they are set up.
