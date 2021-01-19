@@ -1,4 +1,5 @@
 # Second Voyage of HMS Beagle
+[![Docker build](https://img.shields.io/badge/Docker%20build-Available-informational)](https://hub.docker.com/repository/docker/olavurmortensen/hms-beagle)
 
 On the 27th of December 1831, the HMS Beagle embarked on its _Second Voyage_. Onboard the sloop was the young Charles Darwin, who set out on a journey that would define his career. By deploying `hms-beagle:second-voyage` we too shall embark on a journey, a journey of biology and computation.
 
