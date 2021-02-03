@@ -23,18 +23,9 @@ Deploy a container with this image.
 sudo docker run -it -p80:80 hms-beagle:second-voyage
 ```
 
-Then from the container command-line, run Jupyter:
-```bash
-jupyter lab
-```
-
-The Jupyter Lab server is now running on IP `0.0.0.0` on port `80`. Go to `0.0.0.0` in your browser and type in the token (shown in the log of the command above).
-
-For information about how to use Jupyter, [read the docs](https://jupyterlab.readthedocs.io/en/stable/index.html).
-
 ### Build image from source
 
-Download source code.
+If you want to build the image from source, first download the source code:
 
 ```bash
 git clone https://github.com/olavurmortensen/hms-beagle.git
@@ -54,6 +45,26 @@ sudo docker run -it -p80:80 hms-beagle
 ```
 
 Proceed as in the previous section.
+
+### Run tmux
+
+From the container command-line, run [tmux](https://github.com/tmux/tmux/wiki) terminal multiplexer:
+
+```bash
+tmux
+```
+
+### Run Jupyter
+
+From the container command-line, run [Jupyter](https://jupyterlab.readthedocs.io/en/stable/index.html):
+
+```bash
+jupyter lab
+```
+
+The Jupyter Lab server is now running on IP `0.0.0.0` on port `80`. Go to `0.0.0.0` in your browser and type in the token (shown in the log of the command above).
+
+For information about how to use Jupyter, [read the docs](https://jupyterlab.readthedocs.io/en/stable/index.html).
 
 ## Description
 
