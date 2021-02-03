@@ -7,4 +7,5 @@ channels:
 
 dependencies:
     - jupyterlab
-    - nb_conda_kernels=2.3.1
+    - nb_conda_kernels
+    - nodejs
