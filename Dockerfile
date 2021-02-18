@@ -62,7 +62,7 @@ RUN apt-get update -yqq && apt-get install -yqq gdebi-core && \
     rm rstudio-server-1.2.5001-amd64.deb
 
 # Configure RStudio Server to run on 0.0.0.0/80.
-RUN echo "www-port=80" >> /etc/rstudio/rserver.conf
+RUN echo "www-port=81" >> /etc/rstudio/rserver.conf
 RUN echo "www-address=0.0.0.0" >> /etc/rstudio/rserver.conf
 
 # Append bashrc_extra to /root/.bashrc.
