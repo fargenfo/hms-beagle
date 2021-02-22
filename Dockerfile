@@ -139,5 +139,24 @@ COPY jupyter_lab_config.py /root/.jupyter
 # as it clashes with various other shortcuts when working in a browser in Jupyter.
 COPY tmux.conf /root/.tmux.conf
 
+# Install Node.js and npm.
+# Installation instructions:
+# https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions
+# Update GPG key first.
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get update -yqq && \
+    apt-get install -yqq nodejs
+
+# Download IGV Web App release from GitHub.
+RUN wget --quiet https://github.com/igvteam/igv-webapp/archive/1.3.0.tar.gz
+RUN tar xzf 1.3.0.tar.gz
+
+# Build IGV Web App NPM package.
+WORKDIR igv-webapp-1.3.0
+RUN npm install
+RUN npm run build
+WORKDIR /root
+
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
