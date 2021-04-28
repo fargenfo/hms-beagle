@@ -158,5 +158,28 @@ RUN npm install
 RUN npm run build
 WORKDIR /root
 
+# Install Rancher v2.2.
+# Rancher website: https://rancher.com/
+# The executable is placed in /opt/rancher and this folder is added to path.
+RUN mkdir /opt/rancher
+WORKDIR /opt/rancher
+RUN wget --quiet https://releases.rancher.com/cli2/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz && \
+    tar zxf rancher-linux-amd64-v2.2.0.tar.gz && \
+    mv rancher-v2.2.0/rancher . && \
+    rm -r rancher-v2.2.0 rancher-linux-amd64-v2.2.0.tar.gz
+ENV PATH /opt/rancher:$PATH
+WORKDIR /root
+
+# Install kubectl v1.21.0.
+# The executable is placed in /opt/rancher and this folder is added to path.
+# To get the latest release version number, run this command:
+# curl -L -s https://dl.k8s.io/release/stable.txt
+RUN mkdir /opt/kubectl
+WORKDIR /opt/kubectl
+RUN curl -LOs "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl
+ENV PATH /opt/kubectl:$PATH
+WORKDIR /root
+
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
