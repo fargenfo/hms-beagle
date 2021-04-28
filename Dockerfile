@@ -151,6 +151,7 @@ RUN apt-get update -yqq && \
 # Download IGV Web App release from GitHub.
 RUN wget --quiet https://github.com/igvteam/igv-webapp/archive/1.3.0.tar.gz
 RUN tar xzf 1.3.0.tar.gz
+RUN rm 1.3.0.tar.gz
 
 # Build IGV Web App NPM package.
 WORKDIR igv-webapp-1.3.0
