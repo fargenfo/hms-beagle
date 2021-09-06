@@ -182,5 +182,11 @@ RUN curl -LOs "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl" && \
 ENV PATH /opt/kubectl:$PATH
 WORKDIR /root
 
+# tini cleans up dead processes in the container. Dead processes can lead to clutter and eventually
+# kernel crashing.
+# https://github.com/krallin/tini
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
+
+# Add the jupyter executable from the conda env to the bin folder, so that it is available in the path.
+RUN cp /opt/conda/envs/hms-beagle/bin/jupyter /usr/bin
+CMD ["jupyter", "lab" ]
