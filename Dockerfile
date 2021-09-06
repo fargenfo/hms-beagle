@@ -189,4 +189,13 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 
 # Add the jupyter executable from the conda env to the bin folder, so that it is available in the path.
 RUN cp /opt/conda/envs/hms-beagle/bin/jupyter /usr/bin
-CMD ["jupyter", "lab" ]
+
+# Just some test credentials (NOTE: not tracking the jupyter_server_config.json file in git).
+#RUN mkdir -p /home/user/auth/jupyter
+#COPY jupyter_server_config.json /home/user/auth/jupyter
+
+# Make sure jupyter is run from the root directory.
+# NOTE: I don't know if the container mounts data before it's up and running, so I don't know if this
+# config path will work. It doesn't even work with the test config above, which I don't understand at all.
+WORKDIR /
+CMD ["jupyter", "lab", "--config=`ls /home/*/auth/jupyter/jupyter_server_config.json`" ]
