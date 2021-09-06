@@ -199,3 +199,7 @@ RUN cp /opt/conda/envs/hms-beagle/bin/jupyter /usr/bin
 # config path will work. It doesn't even work with the test config above, which I don't understand at all.
 WORKDIR /
 CMD ["jupyter", "lab", "--config=`ls /home/*/auth/jupyter/jupyter_server_config.json`" ]
+
+# NOTE: might be possible to run on startup via the .profile script. But it doesn't look like its being
+# run at all.
+#RUN echo "jupyter lab --config=\`ls /home/*/auth/jupyter/jupyter_server_config.json\`" >> ~/.profile
