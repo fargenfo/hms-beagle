@@ -182,24 +182,11 @@ RUN curl -LOs "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl" && \
 ENV PATH /opt/kubectl:$PATH
 WORKDIR /root
 
-# tini cleans up dead processes in the container. Dead processes can lead to clutter and eventually
-# kernel crashing.
-# https://github.com/krallin/tini
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
+# Run the entrypoint script, which starts jupyter and initializes tini.
+COPY entrypoint.sh /run
+RUN chmod +x /run/entrypoint.sh
+ENTRYPOINT /run/entrypoint.sh
 
-# Add the jupyter executable from the conda env to the bin folder, so that it is available in the path.
-RUN cp /opt/conda/envs/hms-beagle/bin/jupyter /usr/bin
-
-# Just some test credentials (NOTE: not tracking the jupyter_server_config.json file in git).
-#RUN mkdir -p /home/user/auth/jupyter
-#COPY jupyter_server_config.json /home/user/auth/jupyter
-
-# Make sure jupyter is run from the root directory.
-# NOTE: I don't know if the container mounts data before it's up and running, so I don't know if this
-# config path will work. It doesn't even work with the test config above, which I don't understand at all.
-WORKDIR /
-CMD ["jupyter", "lab", "--config=`ls /home/*/auth/jupyter/jupyter_server_config.json`" ]
-
-# NOTE: might be possible to run on startup via the .profile script. But it doesn't look like its being
-# run at all.
-#RUN echo "jupyter lab --config=\`ls /home/*/auth/jupyter/jupyter_server_config.json\`" >> ~/.profile
+# NOTE: Normally it would be a good idea to run bash here like this:
+#CMD [ "/bin/bash" ]
+# However, because of my entrypoint script above, this seems to have no effect.
