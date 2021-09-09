@@ -182,5 +182,11 @@ RUN curl -LOs "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl" && \
 ENV PATH /opt/kubectl:$PATH
 WORKDIR /root
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
+# Run the entrypoint script, which starts jupyter and initializes tini.
+COPY entrypoint.sh /run
+RUN chmod +x /run/entrypoint.sh
+ENTRYPOINT /run/entrypoint.sh
+
+# NOTE: Normally it would be a good idea to run bash here like this:
+#CMD [ "/bin/bash" ]
+# However, because of my entrypoint script above, this seems to have no effect.
