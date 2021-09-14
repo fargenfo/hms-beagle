@@ -3,6 +3,7 @@
 # Start Jupyter.
 # If the JUPYTER_SERVER_CONFIG environment variable points to a valid config file, this will be used. If either
 # the variable doesn't exist, or points to a non-existing file, then default configuration is used.
+cd /
 /opt/conda/envs/hms-beagle/bin/jupyter lab --config=`ls $JUPYTER_SERVER_CONFIG` &
 
 # FIXME: I'm not 100% sure if this is the correct initialization of tini. In the Dockerfile, the way
